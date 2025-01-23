@@ -11,7 +11,7 @@ const inputFormEl = document.querySelector('.form');
 const gallery = document.querySelector('.gallery');
 const loader = document.querySelector('.loader');
 const btnMore = document.querySelector('.load-more');
-gallery;
+
 loader.style.display = 'none';
 btnMore.style.display = 'none';
 
@@ -87,14 +87,14 @@ async function onLoadMore() {
     loader.style.display = 'none';
 
     if (page * perPage >= data.totalHits) {
-      btnLM.style.display = 'none';
+      btnMore.style.display = 'none';
       iziToast.info({
         message: "We're sorry, but you've reached the end of search results.",
         position: 'bottomCenter',
-        timeout: 1000,
+        timeout: 10000,
       });
     } else {
-      btnLM.style.display = 'flex';
+      btnMore.style.display = 'flex';
     }
 
     const cardHeight = document
