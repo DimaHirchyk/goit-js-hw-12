@@ -8,10 +8,10 @@ import { creatingRequestPhoto } from './js/pixabay';
 import { creatGalleryCard } from './js/render-function';
 
 const inputFormEl = document.querySelector('.form');
-const galleryCardList = document.querySelector('.gallery');
+const gallery = document.querySelector('.gallery');
 const loader = document.querySelector('.loader');
 const btnMore = document.querySelector('.load-more');
-
+gallery;
 loader.style.display = 'none';
 btnMore.style.display = 'none';
 
@@ -30,7 +30,7 @@ const searchingFoto = event => {
 
   question = event.target.elements.query.value.trim();
 
-  galleryCardList.innerHTML = '';
+  gallery.innerHTML = '';
 
   if (!question) {
     iziToast.show({
@@ -58,10 +58,7 @@ const searchingFoto = event => {
 
       page = 1;
 
-      galleryCardList.insertAdjacentHTML(
-        'beforeend',
-        creatGalleryCard(data.hits)
-      );
+      gallery.insertAdjacentHTML('beforeend', creatGalleryCard(data.hits));
       galleryModal.refresh();
       loader.style.display = 'none';
 
