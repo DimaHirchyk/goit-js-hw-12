@@ -67,7 +67,13 @@ const searchingFoto = event => {
       }
     })
     .catch(error => {
-      console.log(error.message);
+      iziToast.show({
+        title: '',
+        backgroundColor: '#EF4040',
+        messageColor: '#FFFFFF',
+        message: `${error.message}`,
+        position: 'topRight',
+      });
     })
     .finally(() => event.target.reset());
 };
@@ -81,6 +87,17 @@ async function onLoadMore() {
 
   try {
     const data = await creatingRequestPhoto(question, page);
+
+    if (data.hits.length === 0) {
+      iziToast.info({
+        message: 'No results found for your query.',
+        position: 'bottomCenter',
+        timeout: 5000,
+      });
+      btnMore.style.display = 'none';
+      loader.style.display = 'none';
+      return;
+    }
 
     gallery.insertAdjacentHTML('beforeend', creatGalleryCard(data.hits));
     galleryModal.refresh();
@@ -97,15 +114,22 @@ async function onLoadMore() {
       btnMore.style.display = 'flex';
     }
 
-    const cardHeight = document
-      .querySelector('.gallery-item')
-      .getBoundingClientRect().height;
-    window.scrollBy({
-      top: cardHeight * 2,
-      behavior: 'smooth',
-    });
+    const firstGalleryItem = document.querySelector('.gallery-iteam');
+    if (firstGalleryItem) {
+      const cardHeight = firstGalleryItem.getBoundingClientRect().height;
+      window.scrollBy({
+        top: cardHeight * 2,
+        behavior: 'smooth', // Плавний скрол
+      });
+    }
   } catch (error) {
-    console.log(error.message);
+    iziToast.show({
+      title: '',
+      backgroundColor: '#EF4040',
+      messageColor: '#FFFFFF',
+      message: `${error.message}`,
+      position: 'topRight',
+    });
   } finally {
     btnMore.disabled = false;
   }

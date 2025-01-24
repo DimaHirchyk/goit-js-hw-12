@@ -10,7 +10,7 @@ export function creatGalleryCard(arr) {
         comments,
         downloads,
       }) =>
-        ` <li class="gallery-list">
+        ` <li class="gallery-iteam">
             <a class="gallery-link" href="${largeImageURL}">
             <img class="gallery-img" src="${webformatURL}" alt="${tags}" width="360" loading="lazy"></img></a>
               <ul class="inform-list">
